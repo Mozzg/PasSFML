@@ -2030,6 +2030,7 @@ type
   public
     constructor Create; overload;
     constructor Create(Texture: TSfmlTexture); overload;
+    constructor Create(Texture: PSfmlTexture); overload;
     constructor Create(Texture: TSfmlTexture; TextureRect: TSfmlIntRect); overload;
     destructor Destroy; override;
 
@@ -2283,6 +2284,7 @@ type
     function GetRepeated: Boolean;
     function GetSmooth: Boolean;
     function GetTexture: TSfmlTexture;
+    function GetRawTexture: PSfmlTexture;
     procedure SetRepeated(Repeated: Boolean);
     procedure SetSmooth(Smooth: Boolean);
   protected
@@ -2329,6 +2331,7 @@ type
     property Repeated: Boolean read GetRepeated write SetRepeated;
     property Smooth: Boolean read GetSmooth write SetSmooth;
     property Texture: TSfmlTexture read GetTexture;
+    property RawTexture: PSfmlTexture read GetRawTexture;
   end;
 
   TSfmlRenderWindow = class(TSfmlRenderTarget, ISfmlWindow)
@@ -3438,6 +3441,11 @@ begin
   Result := FTexture;
 end;
 
+function TSfmlRenderTexture.GetRawTexture: PSfmlTexture;
+begin
+  Result := SfmlRenderTextureGetTexture(FHandle);
+end;
+
 function TSfmlRenderTexture.GetView: TSfmlView;
 var
   ViewHandle: PSfmlView;
@@ -4305,6 +4313,12 @@ begin
 end;
 
 constructor TSfmlSprite.Create(Texture: TSfmlTexture);
+begin
+  Create;
+  SetTexture(Texture);
+end;
+
+constructor TSfmlSprite.Create(Texture: PSfmlTexture);
 begin
   Create;
   SetTexture(Texture);
