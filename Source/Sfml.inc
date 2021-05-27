@@ -2,6 +2,7 @@
   {$MODE Delphi}
   {$PACKRECORDS C}
   {$DEFINE RecordOperators}
+  {$DEFINE RecordConstructors}
 {$ELSE}
   {$IFDEF VER170}
     {$DEFINE RecordOperators}
@@ -67,6 +68,26 @@
     {$DEFINE RecordOperators}
     {$DEFINE RecordConstructors}
   {$ENDIF VER300}
+
+  {$IFDEF VER310}
+    {$DEFINE RecordOperators}
+    {$DEFINE RecordConstructors}
+  {$ENDIF VER310}
+
+  {$IFDEF VER320}
+    {$DEFINE RecordOperators}
+    {$DEFINE RecordConstructors}
+  {$ENDIF VER320}
+
+  {$IFDEF VER330}
+    {$DEFINE RecordOperators}
+    {$DEFINE RecordConstructors}
+  {$ENDIF VER330}
+
+  {$IFDEF VER340}
+    {$DEFINE RecordOperators}
+    {$DEFINE RecordConstructors}
+  {$ENDIF VER340}
 {$ENDIF}
 
 {-$DEFINE DynLink}

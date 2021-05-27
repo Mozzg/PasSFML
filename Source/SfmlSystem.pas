@@ -93,7 +93,7 @@ type
   TSfmlVector2f = record
     X, Y : Single;
     {$IFDEF RecordConstructors}
-    constructor Create(X, Y: Double);
+    constructor Create(X, Y: Single);
     {$ENDIF}
     {$IFDEF RecordOperators}
     class operator Equal(const Lhs, Rhs: TSfmlVector2f): Boolean;
@@ -352,7 +352,7 @@ begin
   Self.Y := Y;
 end;
 
-constructor TSfmlVector2f.Create(X, Y: Double);
+constructor TSfmlVector2f.Create(X, Y: Single);
 begin
   Self.X := X;
   Self.Y := Y;

@@ -225,9 +225,8 @@ type
   TSfmlShapeGetPointCountCallback = function (UserData: Pointer): NativeUInt; cdecl;
   TSfmlShapeGetPointCallback = function (Index: NativeUInt; UserData: Pointer): TSfmlVector2f; cdecl;
 
-  TSfmlTextStyle = (sfTextBold, sfTextItalic, sfTextUnderlined,
-    sfTextStrikeThrough);
-  TSfmlTextStyles = set of TSfmlTextStyle;
+  //TSfmlTextStyle = (sfTextBold, sfTextItalic, sfTextUnderlined, sfTextStrikeThrough);
+  //TSfmlTextStyles = set of TSfmlTextStyle;
 
   TSfmlVertex = record
     Position: TSfmlVector2f;
@@ -335,6 +334,7 @@ type
   TSfmlImageCreateFromStream = function (const Stream: PSfmlInputStream): PSfmlImage; cdecl;
   TSfmlImageCopy = function (const Image: PSfmlImage): PSfmlImage; cdecl;
   TSfmlImageDestroy = procedure (Image: PSfmlImage); cdecl;
+  TSfmlImageLoadFromFile = function (Image: PSfmlImage; const FileName: PAnsiChar): LongBool; cdecl;
   TSfmlImageSaveToFile = function (const Image: PSfmlImage; const FileName: PAnsiChar): LongBool; cdecl;
   TSfmlImageGetSize = function (const Image: PSfmlImage): TSfmlVector2u; cdecl;
   TSfmlImageCreateMaskFromColor = procedure (Image: PSfmlImage; Color: TSfmlColor; Alpha: Byte); cdecl;
@@ -384,6 +384,7 @@ type
   TSfmlRectangleShapeGetGlobalBounds = function (const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl;
 
   TSfmlRenderTextureCreate = function (Width, Height: Cardinal; DepthBuffer: LongBool): PSfmlRenderTexture; cdecl;
+  TSfmlRenderTextureRecreate = procedure (RenderTexture: PSfmlRenderTexture; Width, Height: Cardinal; DepthBuffer: LongBool); cdecl;
   TSfmlRenderTextureDestroy = procedure (RenderTexture: PSfmlRenderTexture); cdecl;
   TSfmlRenderTextureGetSize = function (const RenderTexture: PSfmlRenderTexture): TSfmlVector2u; cdecl;
   TSfmlRenderTextureSetActive = function (RenderTexture: PSfmlRenderTexture; Active: LongBool): LongBool; cdecl;
@@ -611,6 +612,7 @@ type
   TSfmlTextureDestroy = procedure (Texture: PSfmlTexture); cdecl;
   TSfmlTextureGetSize = function (const Texture: PSfmlTexture): TSfmlVector2u; cdecl;
   TSfmlTextureCopyToImage = function (const Texture: PSfmlTexture): PSfmlImage; cdecl;
+  TSfmlTextureUpdate = procedure (Texture: PSfmlTexture; const Pixels: PByte); cdecl;
   TSfmlTextureUpdateFromPixels = procedure (Texture: PSfmlTexture; const Pixels: PByte; Width, Height, X, Y: Cardinal); cdecl;
   TSfmlTextureUpdateFromImage = procedure (Texture: PSfmlTexture; const Image: PSfmlImage; X, Y: Cardinal); cdecl;
   TSfmlTextureUpdateFromWindow = procedure (Texture: PSfmlTexture; const Window: PSfmlWindow; X, Y: Cardinal); cdecl;
@@ -802,6 +804,7 @@ var
   SfmlImageCreateFromStream: TSfmlImageCreateFromStream;
   SfmlImageCopy: TSfmlImageCopy;
   SfmlImageDestroy: TSfmlImageDestroy;
+  SfmlImageLoadFromFile: TSfmlImageLoadFromFile;
   SfmlImageSaveToFile: TSfmlImageSaveToFile;
   SfmlImageCreateMaskFromColor: TSfmlImageCreateMaskFromColor;
   SfmlImageCopyImage: TSfmlImageCopyImage;
@@ -855,6 +858,7 @@ var
 {$ENDIF}
 
   SfmlRenderTextureCreate: TSfmlRenderTextureCreate;
+  SfmlRenderTextureRecreate: TSfmlRenderTextureRecreate;
   SfmlRenderTextureDestroy: TSfmlRenderTextureDestroy;
   SfmlRenderTextureSetActive: TSfmlRenderTextureSetActive;
   SfmlRenderTextureDisplay: TSfmlRenderTextureDisplay;
@@ -1089,6 +1093,7 @@ var
   SfmlTextureCopy: TSfmlTextureCopy;
   SfmlTextureDestroy: TSfmlTextureDestroy;
   SfmlTextureCopyToImage: TSfmlTextureCopyToImage;
+  SfmlTextureUpdate: TSfmlTextureUpdate;
   SfmlTextureUpdateFromPixels: TSfmlTextureUpdateFromPixels;
   SfmlTextureUpdateFromImage: TSfmlTextureUpdateFromImage;
   SfmlTextureUpdateFromWindow: TSfmlTextureUpdateFromWindow;
@@ -1185,6 +1190,13 @@ const
   SfmlMagenta: TSfmlColor = (R: $FF; G: 0; B: $FF; A: $FF);
   SfmlCyan: TSfmlColor = (R: 0; G: $FF; B: $FF; A: $FF);
   SfmlTransparent: TSfmlColor = (R: 0; G: 0; B: 0; A: 0);
+
+  //TSfmlTextStyles
+  sfTextRegular = 0;
+  sfTextBold = 1;
+  sfTextItalic = 2;
+  sfTextUnderlined = 4;
+  sfTextStrikeThrough = 8;
 
   SfmlTransformIdentity: TSfmlTransform = (Matrix: (1, 0, 0, 0, 1, 0, 0, 0, 1));
 
@@ -1324,6 +1336,7 @@ const
   function SfmlImageCreateFromStream(const Stream: PSfmlInputStream): PSfmlImage; cdecl; external CSfmlGraphicsLibrary name 'sfImage_createFromStream';
   function SfmlImageCopy(const Image: PSfmlImage): PSfmlImage; cdecl; external CSfmlGraphicsLibrary name 'sfImage_copy';
   procedure SfmlImageDestroy(Image: PSfmlImage); cdecl; external CSfmlGraphicsLibrary name 'sfImage_destroy';
+  function SfmlImageLoadFromFile(Image: PSfmlImage; const FileName: PAnsiChar): LongBool; cdecl; external CSfmlGraphicsLibrary name 'sfImage_loadFromFile';
   function SfmlImageSaveToFile(const Image: PSfmlImage; const FileName: PAnsiChar): LongBool; cdecl; external CSfmlGraphicsLibrary name 'sfImage_saveToFile';
   procedure SfmlImageCreateMaskFromColor(Image: PSfmlImage; Color: TSfmlColor; Alpha: Byte); cdecl; external CSfmlGraphicsLibrary name 'sfImage_createMaskFromColor';
   procedure SfmlImageCopyImage(Image: PSfmlImage; const Source: PSfmlImage; DestX, DestY: Cardinal; SourceRect: TSfmlIntRect; ApplyAlpha: LongBool); cdecl; external CSfmlGraphicsLibrary name 'sfImage_copyImage';
@@ -1377,6 +1390,7 @@ const
 {$ENDIF}
 
   function SfmlRenderTextureCreate(Width, Height: Cardinal; DepthBuffer: LongBool): PSfmlRenderTexture; cdecl; external CSfmlGraphicsLibrary name 'sfRenderTexture_create';
+  procedure SfmlRenderTextureRecreate(RenderTexture: PSfmlRenderTexture; Width, Height: Cardinal; DepthBuffer: LongBool); cdecl; external CSfmlGraphicsLibrary name 'sfRenderTexture_recreate';
   procedure SfmlRenderTextureDestroy(RenderTexture: PSfmlRenderTexture); cdecl; external CSfmlGraphicsLibrary name 'sfRenderTexture_destroy';
   function SfmlRenderTextureSetActive(RenderTexture: PSfmlRenderTexture; Active: LongBool): LongBool; cdecl; external CSfmlGraphicsLibrary name 'sfRenderTexture_setActive';
   procedure SfmlRenderTextureDisplay(RenderTexture: PSfmlRenderTexture); cdecl; external CSfmlGraphicsLibrary name 'sfRenderTexture_display';
@@ -1613,6 +1627,7 @@ const
   function SfmlTextureCopy(const Texture: PSfmlTexture): PSfmlTexture; cdecl; external CSfmlGraphicsLibrary name 'sfTexture_copy';
   procedure SfmlTextureDestroy(Texture: PSfmlTexture); cdecl; external CSfmlGraphicsLibrary name 'sfTexture_destroy';
   function SfmlTextureCopyToImage(const Texture: PSfmlTexture): PSfmlImage; cdecl; external CSfmlGraphicsLibrary name 'sfTexture_copyToImage';
+  procedure SfmlTextureUpdate(Texture: PSfmlTexture; const Pixels: PByte); cdecl; external CSfmlGraphicsLibrary name 'sfTexture_update';
   procedure SfmlTextureUpdateFromPixels(Texture: PSfmlTexture; const Pixels: PByte; Width, Height, X, Y: Cardinal); cdecl; external CSfmlGraphicsLibrary name 'sfTexture_updateFromPixels';
   procedure SfmlTextureUpdateFromImage(Texture: PSfmlTexture; const Image: PSfmlImage; X, Y: Cardinal); cdecl; external CSfmlGraphicsLibrary name 'sfTexture_updateFromImage';
   procedure SfmlTextureUpdateFromWindow(Texture: PSfmlTexture; const Window: PSfmlWindow; X, Y: Cardinal); cdecl; external CSfmlGraphicsLibrary name 'sfTexture_updateFromWindow';
@@ -1931,6 +1946,7 @@ type
     property Handle: PSfmlRectangleShape read FHandle;
     property PointCount: NativeUInt read GetPointCount;
     property Size: TSfmlVector2f read GetSize write SetSize;
+    property Position: TSfmlVector2f read GetPosition write SetPosition;
   end;
 
   TSfmlImage = class
@@ -1952,6 +1968,7 @@ type
 
     function Copy: TSfmlImage;
     function GetPixelsPtr: PByte;
+    function LoadFromFile(const FileName: AnsiString): Boolean;
     function SaveToFile(const FileName: AnsiString): Boolean;
     procedure CopyImage(const Source: PSfmlImage; DestX, DestY: Cardinal; SourceRect: TSfmlIntRect; ApplyAlpha: Boolean); overload;
     procedure CopyImage(const Source: TSfmlImage; DestX, DestY: Cardinal; SourceRect: TSfmlIntRect; ApplyAlpha: Boolean); overload;
@@ -1989,6 +2006,7 @@ type
     function CopyToImage: TSfmlImage; overload;
     procedure Bind;
 
+    procedure UpdateRaw(const Pixels: PByte);
     procedure UpdateFromImage(const Image: TSfmlImage; X, Y: Cardinal); overload;
     procedure UpdateFromImage(const Image: PSfmlImage; X, Y: Cardinal); overload;
     procedure UpdateFromPixels(const Pixels: PByte; Width, Height, X, Y: Cardinal);
@@ -2099,7 +2117,7 @@ type
     function GetGlobalBounds: TSfmlFloatRect;
     function GetLocalBounds: TSfmlFloatRect;
     function GetString: AnsiString;
-    function GetStyle: Cardinal;
+    function GetStyle: Cardinal;  //TSfmlTextStyles
     function GetUnicodeString: UnicodeString;
     procedure SetCharacterSize(Size: Cardinal);
     procedure SetColor(Color: TSfmlColor); deprecated;
@@ -2108,7 +2126,7 @@ type
     procedure SetOutlineThickness(Thickness: Single);
     procedure SetFont(const Font: PSfmlFont);
     procedure SetString(const &String: AnsiString);
-    procedure SetStyle(Style: Cardinal);
+    procedure SetStyle(Style: Cardinal);  //TSfmlTextStyles
     procedure SetUnicodeString(const &String: UnicodeString);
   protected
     function GetInverseTransform: TSfmlTransform; override;
@@ -2152,7 +2170,7 @@ type
     property Rotation: Single read GetRotation write SetRotation;
     property ScaleFactor: TSfmlVector2f read GetScale write SetScale;
     property &String: AnsiString read GetString write SetString;
-    property Style: Cardinal read GetStyle write SetStyle;
+    property Style: Cardinal read GetStyle write SetStyle;  //TSfmlTextStyles
     property Transform: TSfmlTransform read GetTransform;
     property UnicodeString: UnicodeString read GetUnicodeString write SetUnicodeString;
   end;
@@ -2295,6 +2313,8 @@ type
   public
     constructor Create(Width, Height: Cardinal; DepthBuffer: Boolean = False);
     destructor Destroy; override;
+
+    procedure Recreate(Width, Height: Cardinal; DepthBuffer: Boolean = False);
 
     function GetViewport(const View: PSfmlView): TSfmlIntRect; override;
     function MapCoordsToPixel(Point: TSfmlVector2i; const View: PSfmlView = nil): TSfmlVector2i; override;
@@ -3080,6 +3100,11 @@ begin
   Result := SfmlImageGetSize(FHandle);
 end;
 
+function TSfmlImage.LoadFromFile(const FileName: AnsiString): Boolean;
+begin
+  Result := SfmlImageLoadFromFile(FHandle, PAnsiChar(FileName));
+end;
+
 function TSfmlImage.SaveToFile(const FileName: AnsiString): Boolean;
 begin
   Result := SfmlImageSaveToFile(FHandle, PAnsiChar(FileName));
@@ -3280,6 +3305,11 @@ destructor TSfmlRenderTexture.Destroy;
 begin
   SfmlRenderTextureDestroy(FHandle);
   inherited;
+end;
+
+procedure TSfmlRenderTexture.Recreate(Width, Height: Cardinal; DepthBuffer: Boolean = False);
+begin
+  SfmlRenderTextureRecreate(FHandle, Width, Height, DepthBuffer);
 end;
 
 procedure TSfmlRenderTexture.Clear(Color: TSfmlColor);
@@ -3575,6 +3605,7 @@ end;
 destructor TSfmlRenderWindow.Destroy;
 begin
   SfmlRenderWindowDestroy(FHandle);
+  if Assigned(FView) then View.Free;
   inherited;
 end;
 
@@ -4800,6 +4831,11 @@ begin
   SfmlTextureUpdateFromImage(FHandle, Image.Handle, X, Y);
 end;
 
+procedure TSfmlTexture.UpdateRaw(const Pixels: PByte);
+begin
+  SfmlTextureUpdate(FHandle, Pixels);
+end;
+
 procedure TSfmlTexture.UpdateFromPixels(const Pixels: PByte; Width, Height, X,
   Y: Cardinal);
 begin
@@ -5236,6 +5272,7 @@ begin
       SfmlImageCreateFromStream := BindFunction('sfImage_createFromStream');
       SfmlImageCopy := BindFunction('sfImage_copy');
       SfmlImageDestroy := BindFunction('sfImage_destroy');
+      SfmlImageLoadFromFile := BindFunction('sfImage_loadFromFile');
       SfmlImageSaveToFile := BindFunction('sfImage_saveToFile');
       SfmlImageCreateMaskFromColor := BindFunction('sfImage_createMaskFromColor');
       SfmlImageCopyImage := BindFunction('sfImage_copyImage');
@@ -5276,6 +5313,7 @@ begin
       SfmlRectangleShapeGetLocalBounds := BindFunction('sfRectangleShape_getLocalBounds');
       SfmlRectangleShapeGetGlobalBounds := BindFunction('sfRectangleShape_getGlobalBounds');
       SfmlRenderTextureCreate := BindFunction('sfRenderTexture_create');
+      SfmlRenderTextureRecreate := BindFunction('sfRenderTexture_recreate');
       SfmlRenderTextureDestroy := BindFunction('sfRenderTexture_destroy');
       SfmlRenderTextureSetActive := BindFunction('sfRenderTexture_setActive');
       SfmlRenderTextureDisplay := BindFunction('sfRenderTexture_display');
@@ -5471,6 +5509,7 @@ begin
       SfmlTextureCopy := BindFunction('sfTexture_copy');
       SfmlTextureDestroy := BindFunction('sfTexture_destroy');
       SfmlTextureCopyToImage := BindFunction('sfTexture_copyToImage');
+      SfmlTextureUpdate := BindFunction('sfTexture_update');
       SfmlTextureUpdateFromPixels := BindFunction('sfTexture_updateFromPixels');
       SfmlTextureUpdateFromImage := BindFunction('sfTexture_updateFromImage');
       SfmlTextureUpdateFromWindow := BindFunction('sfTexture_updateFromWindow');
