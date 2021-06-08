@@ -105,6 +105,7 @@ type
     class operator Divide(const Lhs: TSfmlVector2f; Rhs: Single): TSfmlVector2f;
     {$ENDIF}
   end;
+  PTSfmlVector2f = ^TSfmlVector2f;
 
   TSfmlVector3f = record
     X, Y, Z: Single;
