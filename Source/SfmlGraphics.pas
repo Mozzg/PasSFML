@@ -7080,227 +7080,381 @@ begin
 end;
 
 procedure SfmlCircleShapeSetPosition(Shape: PSfmlCircleShape; Position: TSfmlVector2f); cdecl;
+begin
 {$IFDEF RASPBERRYVECTORWORKAROUND}
-var val: TSfmlVector2f;
-begin
-  val := Position;
-  SfmlCircleShapeSetPositionInternal(Shape, @val);
+  SfmlCircleShapeSetPositionInternal(Shape, @Position);
 {$ELSE}
-begin
   SfmlCircleShapeSetPositionInternal(Shape, Position);
 {$ENDIF}
 end;
 
 procedure SfmlCircleShapeSetScale(Shape: PSfmlCircleShape; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeSetScaleInternal(Shape, @Scale);
+{$ELSE}
+  SfmlCircleShapeSetScaleInternal(Shape, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlCircleShapeSetOrigin(Shape: PSfmlCircleShape; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeSetOriginInternal(Shape, @Origin);
+{$ELSE}
+  SfmlCircleShapeSetOriginInternal(Shape, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlCircleShapeMove(Shape: PSfmlCircleShape; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeMoveInternal(Shape, @Offset);
+{$ELSE}
+  SfmlCircleShapeMoveInternal(Shape, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlCircleShapeScale(Shape: PSfmlCircleShape; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeScaleInternal(Shape, @Factors);
+{$ELSE}
+  SfmlCircleShapeScaleInternal(Shape, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeSetPosition(Shape: PSfmlConvexShape; Position: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeSetPositionInternal(Shape, @Position);
+{$ELSE}
+  SfmlConvexShapeSetPositionInternal(Shape, Position);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeSetScale(Shape: PSfmlConvexShape; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeSetScaleInternal(Shape, @Scale);
+{$ELSE}
+  SfmlConvexShapeSetScaleInternal(Shape, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeSetOrigin(Shape: PSfmlConvexShape; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeSetOriginInternal(Shape, @Origin);
+{$ELSE}
+  SfmlConvexShapeSetOriginInternal(Shape, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeMove(Shape: PSfmlConvexShape; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeMoveInternal(Shape, @Offset);
+{$ELSE}
+  SfmlConvexShapeMoveInternal(Shape, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeScale(Shape: PSfmlConvexShape; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeScaleInternal(Shape, @Factors);
+{$ELSE}
+  SfmlConvexShapeScaleInternal(Shape, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlConvexShapeSetPoint(Shape: PSfmlConvexShape; Index: NativeUInt; Point: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeSetPointInternal(Shape, Index, @Point);
+{$ELSE}
+  SfmlConvexShapeSetPointInternal(Shape, Index, Point);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeSetPosition(Shape: PSfmlRectangleShape; Position: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeSetPositionInternal(Shape, @Position);
+{$ELSE}
+  SfmlRectangleShapeSetPositionInternal(Shape, Position);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeSetScale(Shape: PSfmlRectangleShape; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeSetScaleInternal(Shape, @Scale);
+{$ELSE}
+  SfmlRectangleShapeSetScaleInternal(Shape, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeSetOrigin(Shape: PSfmlRectangleShape; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeSetOriginInternal(Shape, @Origin);
+{$ELSE}
+  SfmlRectangleShapeSetOriginInternal(Shape, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeMove(Shape: PSfmlRectangleShape; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeMoveInternal(Shape, @Offset);
+{$ELSE}
+  SfmlRectangleShapeMoveInternal(Shape, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeScale(Shape: PSfmlRectangleShape; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeScaleInternal(Shape, @Factors);
+{$ELSE}
+  SfmlRectangleShapeScaleInternal(Shape, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlRectangleShapeSetSize(Shape: PSfmlRectangleShape; Size: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeSetSizeInternal(Shape, @Size);
+{$ELSE}
+  SfmlRectangleShapeSetSizeInternal(Shape, Size);
+{$ENDIF}
 end;
 
 procedure SfmlShaderSetVec2Uniform(Shader: PSfmlShader; const Name: PAnsiChar; Vector: TSfmlGlslVec2); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShaderSetVec2UniformInternal(Shader, Name, @Vector);
+{$ELSE}
+  SfmlShaderSetVec2UniformInternal(Shader, Name, Vector);
+{$ENDIF}
 end;
 
 procedure SfmlShaderSetVector2Parameter(Shader: PSfmlShader; const Name: PAnsiChar; Vector: TSfmlVector2f); cdecl; deprecated;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShaderSetVector2ParameterInternal(Shader, Name, @Vector);
+{$ELSE}
+  SfmlShaderSetVector2ParameterInternal(Shader, Name, Vector);
+{$ENDIF}
 end;
 
 procedure SfmlShapeSetPosition(Shape: PSfmlShape; Position: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeSetPositionInternal(Shape, @Position);
+{$ELSE}
+  SfmlShapeSetPositionInternal(Shape, Position);
+{$ENDIF}
 end;
 
 procedure SfmlShapeSetScale(Shape: PSfmlShape; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeSetScaleInternal(Shape, @Scale);
+{$ELSE}
+  SfmlShapeSetScaleInternal(Shape, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlShapeSetOrigin(Shape: PSfmlShape; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeSetOriginInternal(Shape, @Origin);
+{$ELSE}
+  SfmlShapeSetOriginInternal(Shape, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlShapeMove(Shape: PSfmlShape; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeMoveInternal(Shape, @Offset);
+{$ELSE}
+  SfmlShapeMoveInternal(Shape, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlShapeScale(Shape: PSfmlShape; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeScaleInternal(Shape, @Factors);
+{$ELSE}
+  SfmlShapeScaleInternal(Shape, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlSpriteSetPosition(Sprite: PSfmlSprite; Position: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteSetPositionInternal(Sprite, @Position);
+{$ELSE}
+  SfmlSpriteSetPositionInternal(Sprite, Position);
+{$ENDIF}
 end;
 
 procedure SfmlSpriteSetScale(Sprite: PSfmlSprite; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteSetScaleInternal(Sprite, @Scale);
+{$ELSE}
+  SfmlSpriteSetScaleInternal(Sprite, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlSpriteSetOrigin(Sprite: PSfmlSprite; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteSetOriginInternal(Sprite, @Origin);
+{$ELSE}
+  SfmlSpriteSetOriginInternal(Sprite, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlSpriteMove(Sprite: PSfmlSprite; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteMoveInternal(Sprite, @Offset);
+{$ELSE}
+  SfmlSpriteMoveInternal(Sprite, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlSpriteScale(Sprite: PSfmlSprite; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteScaleInternal(Sprite, @Factors);
+{$ELSE}
+  SfmlSpriteScaleInternal(Sprite, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlTextSetPosition(Text: PSfmlText; Position: TSfmlVector2f); cdecl;
+begin
 {$IFDEF RASPBERRYVECTORWORKAROUND}
-var val: TSfmlVector2f;
-begin
-  val := Position;
-  SfmlTextSetPositionInternal(Text, @val);
+  SfmlTextSetPositionInternal(Text, @Position);
 {$ELSE}
-begin
   SfmlTextSetPositionInternal(Text, Position);
 {$ENDIF}
 end;
 
 procedure SfmlTextSetScale(Text: PSfmlText; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextSetScaleInternal(Text, @Scale);
+{$ELSE}
+  SfmlTextSetScaleInternal(Text, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlTextSetOrigin(Text: PSfmlText; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextSetOriginInternal(Text, @Origin);
+{$ELSE}
+  SfmlTextSetOriginInternal(Text, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlTextMove(Text: PSfmlText; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextMoveInternal(Text, @Offset);
+{$ELSE}
+  SfmlTextMoveInternal(Text, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlTextScale(Text: PSfmlText; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextScaleInternal(Text, @Factors);
+{$ELSE}
+  SfmlTextScaleInternal(Text, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlTransformableSetPosition(Transformable: PSfmlTransformable; Position: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformableSetPositionInternal(Transformable, @Position);
+{$ELSE}
+  SfmlTransformableSetPositionInternal(Transformable, Position);
+{$ENDIF}
 end;
 
 procedure SfmlTransformableSetScale(Transformable: PSfmlTransformable; Scale: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformableSetScaleInternal(Transformable, @Scale);
+{$ELSE}
+  SfmlTransformableSetScaleInternal(Transformable, Scale);
+{$ENDIF}
 end;
 
 procedure SfmlTransformableSetOrigin(Transformable: PSfmlTransformable; Origin: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformableSetOriginInternal(Transformable, @Origin);
+{$ELSE}
+  SfmlTransformableSetOriginInternal(Transformable, Origin);
+{$ENDIF}
 end;
 
 procedure SfmlTransformableMove(Transformable: PSfmlTransformable; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformableMoveInternal(Transformable, @Offset);
+{$ELSE}
+  SfmlTransformableMoveInternal(Transformable, Offset);
+{$ENDIF}
 end;
 
 procedure SfmlTransformableScale(Transformable: PSfmlTransformable; Factors: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformableScaleInternal(Transformable, @Factors);
+{$ELSE}
+  SfmlTransformableScaleInternal(Transformable, Factors);
+{$ENDIF}
 end;
 
 procedure SfmlViewSetCenter(View: PSfmlView; Center: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlViewSetCenterInternal(View, @Center);
+{$ELSE}
+  SfmlViewSetCenterInternal(View, Center);
+{$ENDIF}
 end;
 
 procedure SfmlViewSetSize(View: PSfmlView; Size: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlViewSetSizeInternal(View, @Size);
+{$ELSE}
+  SfmlViewSetSizeInternal(View, Size);
+{$ENDIF}
 end;
 
 procedure SfmlViewMove(View: PSfmlView; Offset: TSfmlVector2f); cdecl;
 begin
-
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlViewMoveInternal(View, @Offset);
+{$ELSE}
+  SfmlViewMoveInternal(View, Offset);
+{$ENDIF}
 end;
 
 {$IFDEF DynLink}
