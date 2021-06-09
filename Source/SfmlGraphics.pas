@@ -5836,7 +5836,7 @@ function SfmlTextGetOriginInternal(const Text: PSfmlText): Int64; cdecl; externa
 function SfmlTextGetPositionInternal(const Text: PSfmlText): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfText_getPosition';
 function SfmlTextGetScaleInternal(const Text: PSfmlText): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfText_getScale';
 function SfmlTextureGetSizeInternal(const Texture: PSfmlTexture): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTexture_getSize';
-function SfmlTransformTransformPointInternal(const Transform: PSfmlTransform; Point: Int64): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformPoint';
+function SfmlTransformTransformPointInternal(const Transform: PSfmlTransform; Point: TSfmlVector2f): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformPoint';
 function SfmlTransformableGetOriginInternal(const Transformable: PSfmlTransformable): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTransformable_getOrigin';
 function SfmlTransformableGetPositionInternal(const Transformable: PSfmlTransformable): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTransformable_getPosition';
 function SfmlTransformableGetScaleInternal(const Transformable: PSfmlTransformable): Int64; cdecl; external CSfmlGraphicsLibrary name 'sfTransformable_getScale';
@@ -5946,7 +5946,7 @@ procedure SfmlRectangleShapeSetOriginInternal(Shape: PSfmlRectangleShape; Origin
 procedure SfmlRectangleShapeMoveInternal(Shape: PSfmlRectangleShape; Offset: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_moveP';
 procedure SfmlRectangleShapeScaleInternal(Shape: PSfmlRectangleShape; Factors: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_scaleP';
 procedure SfmlRectangleShapeSetSizeInternal(Shape: PSfmlRectangleShape; Size: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_setSizeP';
-procedure SfmlShaderSetVec2Uniform(Shader: PSfmlShader; const Name: PAnsiChar; Vector: PSfmlGlslVec2); cdecl; external CSfmlGraphicsLibrary name 'sfShader_setVec2UniformP';
+procedure SfmlShaderSetVec2UniformInternal(Shader: PSfmlShader; const Name: PAnsiChar; Vector: PSfmlGlslVec2); cdecl; external CSfmlGraphicsLibrary name 'sfShader_setVec2UniformP';
 procedure SfmlShaderSetVector2ParameterInternal(Shader: PSfmlShader; const Name: PAnsiChar; Vector: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfShader_setVector2ParameterP'; deprecated;
 procedure SfmlShapeSetPositionInternal(Shape: PSfmlShape; Position: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfShape_setPositionP';
 procedure SfmlShapeSetScaleInternal(Shape: PSfmlShape; Scale: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfShape_setScaleP';
@@ -6510,198 +6510,585 @@ begin
 end;
 
 function SfmlCircleShapeGetOrigin(const Shape: PSfmlCircleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlCircleShapeGetOriginInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlCircleShapeGetOriginInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlCircleShapeGetOriginInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlCircleShapeGetScale(const Shape: PSfmlCircleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlCircleShapeGetScaleInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlCircleShapeGetScaleInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlCircleShapeGetScaleInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlConvexShapeGetOrigin(const Shape: PSfmlConvexShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlConvexShapeGetOriginInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlConvexShapeGetOriginInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlConvexShapeGetOriginInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlConvexShapeGetPoint(const Shape: PSfmlConvexShape; Index: NativeUInt): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlConvexShapeGetPointInternal(Shape, Index);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlConvexShapeGetPointInternal(Shape, Index, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlConvexShapeGetPointInternal(Shape, Index);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlConvexShapeGetPosition(const Shape: PSfmlConvexShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlConvexShapeGetPositionInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlConvexShapeGetPositionInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlConvexShapeGetPositionInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlConvexShapeGetScale(const Shape: PSfmlConvexShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlConvexShapeGetScaleInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlConvexShapeGetScaleInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlConvexShapeGetScaleInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlImageGetSize(const Image: PSfmlImage): TSfmlVector2u; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlImageGetSizeInternal(Image);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlImageGetSizeInternal(Image);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlImageGetSizeInternal(Image);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRectangleShapeGetOrigin(const Shape: PSfmlRectangleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRectangleShapeGetOriginInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRectangleShapeGetOriginInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRectangleShapeGetOriginInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRectangleShapeGetPoint(const Shape: PSfmlRectangleShape; Index: NativeUInt): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRectangleShapeGetPointInternal(Shape, index);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRectangleShapeGetPointInternal(Shape, Index, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRectangleShapeGetPointInternal(Shape, Index);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRectangleShapeGetPosition(const Shape: PSfmlRectangleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRectangleShapeGetPositionInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRectangleShapeGetPositionInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRectangleShapeGetPositionInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRectangleShapeGetScale(const Shape: PSfmlRectangleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRectangleShapeGetScaleInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRectangleShapeGetScaleInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRectangleShapeGetScaleInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRectangleShapeGetSize(const Shape: PSfmlRectangleShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRectangleShapeGetSizeInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRectangleShapeGetSizeInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRectangleShapeGetSizeInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderTextureGetSize(const RenderTexture: PSfmlRenderTexture): TSfmlVector2u; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderTextureGetSizeInternal(RenderTexture);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlRenderTextureGetSizeInternal(RenderTexture);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderTextureGetSizeInternal(RenderTexture);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderTextureMapPixelToCoords(const RenderTexture: PSfmlRenderTexture; Point: TSfmlVector2i; const View: PSfmlView): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderTextureMapPixelToCoordsInternal(RenderTexture, Point, View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRenderTextureMapPixelToCoordsInternal(RenderTexture, Point, View, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderTextureMapPixelToCoordsInternal(RenderTexture, Point, View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderTextureMapCoordsToPixel(const RenderTexture: PSfmlRenderTexture; Point: TSfmlVector2i; const View: PSfmlView): TSfmlVector2i; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderTextureMapCoordsToPixelInternal(RenderTexture, Point, View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlRenderTextureMapCoordsToPixelInternal(RenderTexture, Point, View);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderTextureMapCoordsToPixelInternal(RenderTexture, Point, View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderWindowGetSize(const RenderWindow: PSfmlRenderWindow): TSfmlVector2u; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderWindowGetSizeInternal(RenderWindow);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlRenderWindowGetSizeInternal(RenderWindow);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderWindowGetSizeInternal(RenderWindow);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderWindowMapPixelToCoords(const RenderWindow: PSfmlRenderWindow; Point: TSfmlVector2i; const View: PSfmlView): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderWindowMapPixelToCoordsInternal(RenderWindow, Point, View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlRenderWindowMapPixelToCoordsInternal(RenderWindow, Point, View, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderWindowMapPixelToCoordsInternal(RenderWindow, Point, View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlRenderWindowMapCoordsToPixel(const RenderWindow: PSfmlRenderWindow; Point: TSfmlVector2i; const View: PSfmlView): TSfmlVector2i; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlRenderWindowMapCoordsToPixelInternal(RenderWindow, Point, View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlRenderWindowMapCoordsToPixelInternal(RenderWindow, Point, View);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlRenderWindowMapCoordsToPixelInternal(RenderWindow, Point, View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlMouseGetPositionRenderWindow(const RelativeTo: PSfmlRenderWindow): TSfmlVector2i; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlMouseGetPositionRenderWindowInternal(RelativeTo);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlMouseGetPositionRenderWindowInternal(RelativeTo);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlMouseGetPositionRenderWindowInternal(RelativeTo);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTouchGetPositionRenderWindow(Finger: Cardinal; const RelativeTo: PSfmlRenderWindow): TSfmlVector2i; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTouchGetPositionRenderWindowInternal(Finger, RelativeTo);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlTouchGetPositionRenderWindowInternal(Finger, RelativeTo);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTouchGetPositionRenderWindowInternal(Finger, RelativeTo);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlShapeGetOrigin(const Shape: PSfmlShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlShapeGetOriginInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlShapeGetOriginInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlShapeGetOriginInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlShapeGetPoint(const Shape: PSfmlShape; Index: NativeUInt): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlShapeGetPointInternal(Shape, Index);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlShapeGetPointInternal(Shape, Index, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlShapeGetPointInternal(Shape, Index);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlShapeGetPosition(const Shape: PSfmlShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlShapeGetPositionInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlShapeGetPositionInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlShapeGetPositionInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlShapeGetScale(const Shape: PSfmlShape): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlShapeGetScaleInternal(Shape);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlShapeGetScaleInternal(Shape, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlShapeGetScaleInternal(Shape);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlSpriteGetOrigin(const Sprite: PSfmlSprite): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlSpriteGetOriginInternal(Sprite);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlSpriteGetOriginInternal(Sprite, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlSpriteGetOriginInternal(Sprite);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlSpriteGetPosition(const Sprite: PSfmlSprite): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlSpriteGetPositionInternal(Sprite);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlSpriteGetPositionInternal(Sprite, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlSpriteGetPositionInternal(Sprite);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlSpriteGetScale(const Sprite: PSfmlSprite): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlSpriteGetScaleInternal(Sprite);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlSpriteGetScaleInternal(Sprite, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlSpriteGetScaleInternal(Sprite);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTextFindCharacterPos(const Text: PSfmlText; Index: NativeUInt): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTextFindCharacterPosInternal(Text, Index);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTextFindCharacterPosInternal(Text, Index, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTextFindCharacterPosInternal(Text, Index);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTextGetOrigin(const Text: PSfmlText): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTextGetOriginInternal(Text);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTextGetOriginInternal(Text, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTextGetOriginInternal(Text);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTextGetPosition(const Text: PSfmlText): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTextGetPositionInternal(Text);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTextGetPositionInternal(Text, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTextGetPositionInternal(Text);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTextGetScale(const Text: PSfmlText): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTextGetScaleInternal(Text);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTextGetScaleInternal(Text, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTextGetScaleInternal(Text);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTextureGetSize(const Texture: PSfmlTexture): TSfmlVector2u; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTextureGetSizeInternal(Texture);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    Result := SfmlTextureGetSizeInternal(Texture);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTextureGetSizeInternal(Texture);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTransformTransformPoint(const Transform: PSfmlTransform; Point: TSfmlVector2f): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTransformTransformPointInternal(Transform, Point);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTransformTransformPointInternal(Transform, @Point, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTransformTransformPointInternal(Transform, Point);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTransformableGetOrigin(const Transformable: PSfmlTransformable): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTransformableGetOriginInternal(Transformable);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTransformableGetOriginInternal(Transformable, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTransformableGetOriginInternal(Transformable);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTransformableGetPosition(const Transformable: PSfmlTransformable): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTransformableGetPositionInternal(Transformable);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTransformableGetPositionInternal(Transformable, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTransformableGetPositionInternal(Transformable);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlTransformableGetScale(const Transformable: PSfmlTransformable): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlTransformableGetScaleInternal(Transformable);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlTransformableGetScaleInternal(Transformable, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlTransformableGetScaleInternal(Transformable);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlViewGetCenter(const View: PSfmlView): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlViewGetCenterInternal(View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlViewGetCenterInternal(View, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlViewGetCenterInternal(View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 function SfmlViewGetSize(const View: PSfmlView): TSfmlVector2f; cdecl;
+var Val: Int64 absolute Result;
 begin
-
+{$IFDEF IMPLEMENTWORKAROUNDS}
+  {$IFDEF INT64RETURNWORKAROUND}
+    Val := SfmlViewGetSizeInternal(View);
+  {$ENDIF} //{$IFDEF INT64RETURNWORKAROUND}
+  {$IFDEF RASPBERRYVECTORWORKAROUND}
+    SfmlViewGetSizeInternal(View, @Result);
+  {$ENDIF} //{$IFDEF RASPBERRYVECTORWORKAROUND}
+{$ELSE}
+  Result := SfmlViewGetSizeInternal(View);
+{$ENDIF} //{$IFDEF IMPLEMENTWORKAROUNDS}
 end;
 
 procedure SfmlCircleShapeSetPosition(Shape: PSfmlCircleShape; Position: TSfmlVector2f); cdecl;
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+var val: TSfmlVector2f;
 begin
-
+  val := Position;
+  SfmlCircleShapeSetPositionInternal(Shape, @val);
+{$ELSE}
+begin
+  SfmlCircleShapeSetPositionInternal(Shape, Position);
+{$ENDIF}
 end;
 
 procedure SfmlCircleShapeSetScale(Shape: PSfmlCircleShape; Scale: TSfmlVector2f); cdecl;
@@ -6845,8 +7232,15 @@ begin
 end;
 
 procedure SfmlTextSetPosition(Text: PSfmlText; Position: TSfmlVector2f); cdecl;
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+var val: TSfmlVector2f;
 begin
-
+  val := Position;
+  SfmlTextSetPositionInternal(Text, @val);
+{$ELSE}
+begin
+  SfmlTextSetPositionInternal(Text, Position);
+{$ENDIF}
 end;
 
 procedure SfmlTextSetScale(Text: PSfmlText; Scale: TSfmlVector2f); cdecl;
