@@ -23,7 +23,7 @@ unit SfmlGraphics;
 // 3. This notice may not be removed or altered from any Source distribution.
 //
 ////////////////////////////////////////////////////////////////////////////////
-
+{$IFDEF FPC}{$WARN 5028 off : Local $1 "$2" is not used}{$ENDIF}
 interface
 
 {$I Sfml.inc}
@@ -112,6 +112,7 @@ type
     class operator Equal(const Lhs, Rhs: TSfmlFloatRect): Boolean;
     {$ENDIF}
   end;
+  PSfmlFloatRect = ^TSfmlFloatRect;
 
   TSfmlIntRect = record
     Left, Top, Width, Height: LongInt;
@@ -1264,8 +1265,8 @@ const
   procedure SfmlCircleShapeSetRadius(Shape: PSfmlCircleShape; Radius: Single); cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_setRadius';
   function SfmlCircleShapeGetRadius(const Shape: PSfmlCircleShape): Single; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getRadius';
   procedure SfmlCircleShapeSetPointCount(Shape: PSfmlCircleShape; Count: NativeUInt); cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_setPointCount';
-  function SfmlCircleShapeGetLocalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getLocalBounds';
-  function SfmlCircleShapeGetGlobalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getGlobalBounds';
+//  function SfmlCircleShapeGetLocalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getLocalBounds';
+//  function SfmlCircleShapeGetGlobalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getGlobalBounds';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlCircleShapeGetOrigin(const Shape: PSfmlCircleShape): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getOrigin';
   function SfmlCircleShapeGetPoint(const Shape: PSfmlCircleShape; Index: NativeUInt): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getPoint';
@@ -1299,8 +1300,8 @@ const
   function SfmlConvexShapeGetPointCount(const Shape: PSfmlConvexShape): NativeUInt; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getPointCount';
   procedure SfmlConvexShapeSetPointCount(Shape: PSfmlConvexShape; Count: NativeUInt); cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_setPointCount';
 //  procedure SfmlConvexShapeSetPoint(Shape: PSfmlConvexShape; Index: NativeUInt; Point: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_setPoint';
-  function SfmlConvexShapeGetLocalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getLocalBounds';
-  function SfmlConvexShapeGetGlobalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getGlobalBounds';
+//  function SfmlConvexShapeGetLocalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getLocalBounds';
+//  function SfmlConvexShapeGetGlobalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getGlobalBounds';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlConvexShapeGetOrigin(const Shape: PSfmlConvexShape): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getOrigin';
   function SfmlConvexShapeGetPoint(const Shape: PSfmlConvexShape; Index: NativeUInt): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getPoint';
@@ -1372,8 +1373,8 @@ const
   function SfmlRectangleShapeGetOutlineThickness(const Shape: PSfmlRectangleShape): Single; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getOutlineThickness';
   function SfmlRectangleShapeGetPointCount(const Shape: PSfmlRectangleShape): NativeUInt; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getPointCount';
 //  procedure SfmlRectangleShapeSetSize(Shape: PSfmlRectangleShape; Size: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_setSize';
-  function SfmlRectangleShapeGetLocalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getLocalBounds';
-  function SfmlRectangleShapeGetGlobalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getGlobalBounds';
+//  function SfmlRectangleShapeGetLocalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getLocalBounds';
+//  function SfmlRectangleShapeGetGlobalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getGlobalBounds';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlRectangleShapeGetOrigin(const Shape: PSfmlRectangleShape): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getOrigin';
   function SfmlRectangleShapeGetPoint(const Shape: PSfmlRectangleShape; Index: NativeUInt): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getPoint';
@@ -1535,8 +1536,8 @@ const
   function SfmlShapeGetOutlineColor(const Shape: PSfmlShape): TSfmlColor; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getOutlineColor';
   function SfmlShapeGetOutlineThickness(const Shape: PSfmlShape): Single; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getOutlineThickness';
   function SfmlShapeGetPointCount(const Shape: PSfmlShape): NativeUInt; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getPointCount';
-  function SfmlShapeGetLocalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getLocalBounds';
-  function SfmlShapeGetGlobalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getGlobalBounds';
+//  function SfmlShapeGetLocalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getLocalBounds';
+//  function SfmlShapeGetGlobalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getGlobalBounds';
   procedure SfmlShapeUpdate(Shape: PSfmlShape); cdecl; external CSfmlGraphicsLibrary name 'sfShape_update';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlShapeGetOrigin(const Shape: PSfmlShape): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getOrigin';
@@ -1564,8 +1565,8 @@ const
   function SfmlSpriteGetTexture(const Sprite: PSfmlSprite): PSfmlTexture; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getTexture';
   function SfmlSpriteGetTextureRect(const Sprite: PSfmlSprite): TSfmlIntRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getTextureRect';
   function SfmlSpriteGetColor(const Sprite: PSfmlSprite): TSfmlColor; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getColor';
-  function SfmlSpriteGetLocalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getLocalBounds';
-  function SfmlSpriteGetGlobalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getGlobalBounds';
+//  function SfmlSpriteGetLocalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getLocalBounds';
+//  function SfmlSpriteGetGlobalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getGlobalBounds';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlSpriteGetOrigin(const Sprite: PSfmlSprite): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getOrigin';
   function SfmlSpriteGetPosition(const Sprite: PSfmlSprite): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getPosition';
@@ -1603,8 +1604,8 @@ const
   function SfmlTextGetFillColor(const Text: PSfmlText): TSfmlColor; cdecl; external CSfmlGraphicsLibrary name 'sfText_getFillColor';
   function SfmlTextGetOutlineColor(const Text: PSfmlText): TSfmlColor; cdecl; external CSfmlGraphicsLibrary name 'sfText_getOutlineColor';
   function SfmlTextGetOutlineThickness(const Text: PSfmlText): Single; cdecl; external CSfmlGraphicsLibrary name 'sfText_getOutlineThickness';
-  function SfmlTextGetLocalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getLocalBounds';
-  function SfmlTextGetGlobalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getGlobalBounds';
+//  function SfmlTextGetLocalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getLocalBounds';
+//  function SfmlTextGetGlobalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getGlobalBounds';
 (*{$IFNDEF INT64RETURNWORKAROUND}
   function SfmlTextFindCharacterPos(const Text: PSfmlText; Index: NativeUInt): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfText_findCharacterPos';
   function SfmlTextGetOrigin(const Text: PSfmlText): TSfmlVector2f; cdecl; external CSfmlGraphicsLibrary name 'sfText_getOrigin';
@@ -1643,7 +1644,7 @@ const
   function SfmlTransformFromMatrix(a00, a01, a02, a10, a11, a12, a20, a21, a22: Single): TSfmlTransform; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_fromMatrix';
   procedure SfmlTransformGetMatrix(const Transform: PSfmlTransform; Matrix: PSingle); cdecl; external CSfmlGraphicsLibrary name 'sfTransform_getMatrix';
   function SfmlTransformGetInverse(const Transform: PSfmlTransform): TSfmlTransform; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_getInverse';
-  function SfmlTransformTransformRect(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformRect';
+//  function SfmlTransformTransformRect(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformRect';
   procedure SfmlTransformCombine(out Transform: TSfmlTransform; const Other: PSfmlTransform); cdecl; external CSfmlGraphicsLibrary name 'sfTransform_combine';
   procedure SfmlTransformTranslate(Transform: PSfmlTransform; X, Y: Single); cdecl; external CSfmlGraphicsLibrary name 'sfTransform_translate';
   procedure SfmlTransformRotate(Transform: PSfmlTransform; Angle: Single); cdecl; external CSfmlGraphicsLibrary name 'sfTransform_rotate';
@@ -1683,7 +1684,7 @@ const
   procedure SfmlVertexArrayAppend(VertexArray: PSfmlVertexArray; Vertex: TSfmlVertex); cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_append';
   procedure SfmlVertexArraySetPrimitiveType(VertexArray: PSfmlVertexArray; &Type: TSfmlPrimitiveType); cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_setPrimitiveType';
   function SfmlVertexArrayGetPrimitiveType(VertexArray: PSfmlVertexArray): TSfmlPrimitiveType; cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getPrimitiveType';
-  function SfmlVertexArrayGetBounds(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getBounds';
+//  function SfmlVertexArrayGetBounds(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getBounds';
 
   function SfmlViewCreate: PSfmlView; cdecl; external CSfmlGraphicsLibrary name 'sfView_create';
   function SfmlViewCreateFromRect(Rectangle: TSfmlFloatRect): PSfmlView; cdecl; external CSfmlGraphicsLibrary name 'sfView_createFromRect';
@@ -1695,7 +1696,7 @@ const
   procedure SfmlViewSetViewport(View: PSfmlView; Viewport: TSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfView_setViewport';
   procedure SfmlViewReset(View: PSfmlView; Rectangle: TSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfView_reset';
   function SfmlViewGetRotation(const View: PSfmlView): Single; cdecl; external CSfmlGraphicsLibrary name 'sfView_getRotation';
-  function SfmlViewGetViewport(const View: PSfmlView): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfView_getViewport';
+//  function SfmlViewGetViewport(const View: PSfmlView): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfView_getViewport';
 //  procedure SfmlViewMove(View: PSfmlView; Offset: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_move';
   procedure SfmlViewRotate(View: PSfmlView; Angle: Single); cdecl; external CSfmlGraphicsLibrary name 'sfView_rotate';
   procedure SfmlViewZoom(View: PSfmlView; Factor: Single); cdecl; external CSfmlGraphicsLibrary name 'sfView_zoom';
@@ -2612,7 +2613,22 @@ procedure SfmlTransformableScale(Transformable: PSfmlTransformable; Factors: TSf
 procedure SfmlViewSetCenter(View: PSfmlView; Center: TSfmlVector2f); cdecl;
 procedure SfmlViewSetSize(View: PSfmlView; Size: TSfmlVector2f); cdecl;
 procedure SfmlViewMove(View: PSfmlView; Offset: TSfmlVector2f); cdecl;
-
+//return floatrect workaround
+function SfmlCircleShapeGetLocalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl;
+function SfmlCircleShapeGetGlobalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl;
+function SfmlConvexShapeGetLocalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl;
+function SfmlConvexShapeGetGlobalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl;
+function SfmlRectangleShapeGetLocalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl;
+function SfmlRectangleShapeGetGlobalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl;
+function SfmlShapeGetLocalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl;
+function SfmlShapeGetGlobalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl;
+function SfmlSpriteGetLocalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl;
+function SfmlSpriteGetGlobalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl;
+function SfmlTextGetLocalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl;
+function SfmlTextGetGlobalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl;
+function SfmlTransformTransformRect(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl;
+function SfmlVertexArrayGetBounds(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl;
+function SfmlViewGetViewport(const View: PSfmlView): TSfmlFloatRect; cdecl;
 
 function SfmlFloatRect(Left, Top, Width, Height: Single): TSfmlFloatRect; overload;
 function SfmlFloatRect(TopLeft, Size: TSfmlVector2f): TSfmlFloatRect; overload;
@@ -5885,6 +5901,22 @@ procedure SfmlTransformableScaleInternal(Transformable: PSfmlTransformable; Fact
 procedure SfmlViewSetCenterInternal(View: PSfmlView; Center: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setCenter';
 procedure SfmlViewSetSizeInternal(View: PSfmlView; Size: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setSize';
 procedure SfmlViewMoveInternal(View: PSfmlView; Offset: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_move';
+
+function SfmlCircleShapeGetLocalBoundsInternal(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getLocalBounds';
+function SfmlCircleShapeGetGlobalBoundsInternal(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getGlobalBounds';
+function SfmlConvexShapeGetLocalBoundsInternal(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getLocalBounds';
+function SfmlConvexShapeGetGlobalBoundsInternal(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getGlobalBounds';
+function SfmlRectangleShapeGetLocalBoundsInternal(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getLocalBounds';
+function SfmlRectangleShapeGetGlobalBoundsInternal(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getGlobalBounds';
+function SfmlShapeGetLocalBoundsInternal(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getLocalBounds';
+function SfmlShapeGetGlobalBoundsInternal(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getGlobalBounds';
+function SfmlSpriteGetLocalBoundsInternal(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getLocalBounds';
+function SfmlSpriteGetGlobalBoundsInternal(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getGlobalBounds';
+function SfmlTextGetLocalBoundsInternal(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getLocalBounds';
+function SfmlTextGetGlobalBoundsInternal(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getGlobalBounds';
+function SfmlTransformTransformRectInternal(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformRect';
+function SfmlVertexArrayGetBoundsInternal(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getBounds';
+function SfmlViewGetViewportInternal(const View: PSfmlView): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfView_getViewport';
 {$ENDIF}
 //static linking for FPC and ARM workaround
 {$IFDEF RASPBERRYVECTORWORKAROUND}
@@ -5971,6 +6003,22 @@ procedure SfmlTransformableScaleInternal(Transformable: PSfmlTransformable; Fact
 procedure SfmlViewSetCenterInternal(View: PSfmlView; Center: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setCenterP';
 procedure SfmlViewSetSizeInternal(View: PSfmlView; Size: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setSizeP';
 procedure SfmlViewMoveInternal(View: PSfmlView; Offset: PTSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_moveP';
+
+procedure SfmlCircleShapeGetLocalBoundsInternal(const Shape: PSfmlCircleShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getLocalBoundsP';
+procedure SfmlCircleShapeGetGlobalBoundsInternal(const Shape: PSfmlCircleShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getGlobalBoundsP';
+procedure SfmlConvexShapeGetLocalBoundsInternal(const Shape: PSfmlConvexShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getLocalBoundsP';
+procedure SfmlConvexShapeGetGlobalBoundsInternal(const Shape: PSfmlConvexShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getGlobalBoundsP';
+procedure SfmlRectangleShapeGetLocalBoundsInternal(const Shape: PSfmlRectangleShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getLocalBoundsP';
+procedure SfmlRectangleShapeGetGlobalBoundsInternal(const Shape: PSfmlRectangleShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getGlobalBoundsP';
+procedure SfmlShapeGetLocalBoundsInternal(const Shape: PSfmlShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfShape_getLocalBoundsP';
+procedure SfmlShapeGetGlobalBoundsInternal(const Shape: PSfmlShape; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfShape_getGlobalBoundsP';
+procedure SfmlSpriteGetLocalBoundsInternal(const Sprite: PSfmlSprite; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getLocalBoundsP';
+procedure SfmlSpriteGetGlobalBoundsInternal(const Sprite: PSfmlSprite; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getGlobalBoundsP';
+procedure SfmlTextGetLocalBoundsInternal(const Text: PSfmlText; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfText_getLocalBoundsP';
+procedure SfmlTextGetGlobalBoundsInternal(const Text: PSfmlText; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfText_getGlobalBoundsP';
+procedure SfmlTransformTransformRectInternal(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformRectP';
+procedure SfmlVertexArrayGetBoundsInternal(VertexArray: PSfmlVertexArray; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getBoundsP';
+procedure SfmlViewGetViewportInternal(const View: PSfmlView; RetVal: PSfmlFloatRect); cdecl; external CSfmlGraphicsLibrary name 'sfView_getViewportP';
 {$ENDIF}
 //static linking for FPC and not ARM (without workaround)
 {$IFNDEF IMPLEMENTWORKAROUNDS}
@@ -6057,6 +6105,22 @@ procedure SfmlTransformableScaleInternal(Transformable: PSfmlTransformable; Fact
 procedure SfmlViewSetCenterInternal(View: PSfmlView; Center: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setCenter';
 procedure SfmlViewSetSizeInternal(View: PSfmlView; Size: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_setSize';
 procedure SfmlViewMoveInternal(View: PSfmlView; Offset: TSfmlVector2f); cdecl; external CSfmlGraphicsLibrary name 'sfView_move';
+
+function SfmlCircleShapeGetLocalBoundsInternal(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getLocalBounds';
+function SfmlCircleShapeGetGlobalBoundsInternal(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfCircleShape_getGlobalBounds';
+function SfmlConvexShapeGetLocalBoundsInternal(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getLocalBounds';
+function SfmlConvexShapeGetGlobalBoundsInternal(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfConvexShape_getGlobalBounds';
+function SfmlRectangleShapeGetLocalBoundsInternal(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getLocalBounds';
+function SfmlRectangleShapeGetGlobalBoundsInternal(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfRectangleShape_getGlobalBounds';
+function SfmlShapeGetLocalBoundsInternal(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getLocalBounds';
+function SfmlShapeGetGlobalBoundsInternal(const Shape: PSfmlShape): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfShape_getGlobalBounds';
+function SfmlSpriteGetLocalBoundsInternal(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getLocalBounds';
+function SfmlSpriteGetGlobalBoundsInternal(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfSprite_getGlobalBounds';
+function SfmlTextGetLocalBoundsInternal(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getLocalBounds';
+function SfmlTextGetGlobalBoundsInternal(const Text: PSfmlText): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfText_getGlobalBounds';
+function SfmlTransformTransformRectInternal(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfTransform_transformRect';
+function SfmlVertexArrayGetBoundsInternal(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfVertexArray_getBounds';
+function SfmlViewGetViewportInternal(const View: PSfmlView): TSfmlFloatRect; cdecl; external CSfmlGraphicsLibrary name 'sfView_getViewport';
 {$ENDIF}
 
 {$ENDIF} //{$ELSE} {$IFDEF DynLink}
@@ -7454,6 +7518,141 @@ begin
   SfmlViewMoveInternal(View, @Offset);
 {$ELSE}
   SfmlViewMoveInternal(View, Offset);
+{$ENDIF}
+end;
+
+function SfmlCircleShapeGetLocalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeGetLocalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlCircleShapeGetLocalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlCircleShapeGetGlobalBounds(const Shape: PSfmlCircleShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlCircleShapeGetGlobalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlCircleShapeGetGlobalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlConvexShapeGetLocalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeGetLocalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlConvexShapeGetLocalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlConvexShapeGetGlobalBounds(const Shape: PSfmlConvexShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlConvexShapeGetGlobalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlConvexShapeGetGlobalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlRectangleShapeGetLocalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeGetLocalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlRectangleShapeGetLocalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlRectangleShapeGetGlobalBounds(const Shape: PSfmlRectangleShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlRectangleShapeGetGlobalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlRectangleShapeGetGlobalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlShapeGetLocalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeGetLocalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlShapeGetLocalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlShapeGetGlobalBounds(const Shape: PSfmlShape): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlShapeGetGlobalBoundsInternal(Shape, @Result);
+{$ELSE}
+  Result := SfmlShapeGetGlobalBoundsInternal(Shape);
+{$ENDIF}
+end;
+
+function SfmlSpriteGetLocalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteGetLocalBoundsInternal(Sprite, @Result);
+{$ELSE}
+  Result := SfmlSpriteGetLocalBoundsInternal(Sprite);
+{$ENDIF}
+end;
+
+function SfmlSpriteGetGlobalBounds(const Sprite: PSfmlSprite): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlSpriteGetGlobalBoundsInternal(Sprite, @Result);
+{$ELSE}
+  Result := SfmlSpriteGetGlobalBoundsInternal(Sprite);
+{$ENDIF}
+end;
+
+function SfmlTextGetLocalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextGetLocalBoundsInternal(Text, @Result);
+{$ELSE}
+  Result := SfmlTextGetLocalBoundsInternal(Text);
+{$ENDIF}
+end;
+
+function SfmlTextGetGlobalBounds(const Text: PSfmlText): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTextGetGlobalBoundsInternal(Text, @Result);
+{$ELSE}
+  Result := SfmlTextGetGlobalBoundsInternal(Text);
+{$ENDIF}
+end;
+
+function SfmlTransformTransformRect(const Transform: PSfmlTransform; Rectangle: TSfmlFloatRect): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlTransformTransformRectInternal(Transform, Rectangle, @Result);
+{$ELSE}
+  Result := SfmlTransformTransformRectInternal(Transform, Rectangle);
+{$ENDIF}
+end;
+
+function SfmlVertexArrayGetBounds(VertexArray: PSfmlVertexArray): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlVertexArrayGetBoundsInternal(VertexArray, @Result);
+{$ELSE}
+  Result := SfmlVertexArrayGetBoundsInternal(VertexArray);
+{$ENDIF}
+end;
+
+function SfmlViewGetViewport(const View: PSfmlView): TSfmlFloatRect; cdecl;
+begin
+{$IFDEF RASPBERRYVECTORWORKAROUND}
+  SfmlViewGetViewportInternal(View, @Result);
+{$ELSE}
+  Result := SfmlViewGetViewportInternal(View);
 {$ENDIF}
 end;
 
